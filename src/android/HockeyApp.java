@@ -29,22 +29,7 @@ public class HockeyApp extends CordovaPlugin {
 
 
 	@Override
-	public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException, RuntimeException {
-
-//		try {
-//			if (action.equals("getAppName")) {
-//				PackageManager packageManager = this.cordova.getActivity().getPackageManager();
-//				ApplicationInfo ai = packageManager.getApplicationInfo(this.cordova.getActivity().getPackageName(), 0);
-//				CharSequence al = packageManager.getApplicationLabel(ai);
-//				callbackContext.success((String) al);
-//				return true;
-//			}
-//			return false;
-//		} catch (NameNotFoundException e) {
-//			callbackContext.success("N/A");
-//			return true;
-//		}
-
+	public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
 
 		try {
 
@@ -83,7 +68,7 @@ public class HockeyApp extends CordovaPlugin {
 		return new PluginResult(PluginResult.Status.OK);
 	}
 
-	private PluginResult reportCrash(JSONArray args) throws JSONException, RuntimeException {
+	private PluginResult reportCrash(JSONArray args) throws JSONException {
 		String message = args.getString(0);
 		throw new RuntimeException(message);
 	}
