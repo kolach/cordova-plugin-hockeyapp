@@ -60,11 +60,24 @@ public class HockeyApp extends CordovaPlugin {
 
 	}
 
+	@Override
+	public void onResume(boolean multitasking) {
+		super.onResume(multitasking);
+		checkForCrashes();
+	}
+
+	private void checkForCrashes() {
+		CrashManager.register(cordova.getActivity(), appId);
+	}
+
+	private void checkForUpdates() {
+		UpdateManager.register(cordova.getActivity(), appId);
+	}
+
 
 	private PluginResult register(JSONArray args) throws JSONException {
 		appId = args.getString(0);
-		CrashManager.register(cordova.getActivity(), appId);
-		UpdateManager.register(cordova.getActivity(), appId);
+		checkForUpdates();
 		return new PluginResult(PluginResult.Status.OK);
 	}
 
