@@ -34,25 +34,25 @@ public class HockeyApp extends CordovaPlugin {
 		try {
 
 			DefinedAction definedAction = DefinedAction.valueOf(action);
-			PluginResult result = null;
 
 			switch (definedAction) {
 				case register:
+					PluginResult result = null;
 					result = register(args);
+					result.setKeepCallback(false);
+					callbackContext.sendPluginResult(result);
 					break;
 				case reportCrash:
-					result = reportCrash(args);
+					reportCrash(args);
 					break;
 			}
 
-
-			result.setKeepCallback(false);
-			callbackContext.sendPluginResult(result);
 			return true;
 
 		} catch (RuntimeException e) {
-			callbackContext.success(e.toString());
+			callbackContext.success("Reported error: " + e.toString());
 			throw e;
+
 		} catch (JSONException e) {
 			callbackContext.error(e.getMessage());
 			return false;
