@@ -49,7 +49,7 @@ public class HockeyApp extends CordovaPlugin {
 			PluginResult result = null;
 
 			switch (definedAction) {
-				case init:
+				case register:
 					result = register(args);
 					break;
 			}
