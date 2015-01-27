@@ -22,5 +22,23 @@
 //  return toReturn;
 //};
 
+var exec = require("cordova/exec");
+
 module.exports = {
+
+  register: register
+
 };
+
+
+function getDeferred() {
+  var injector = angular.injector(["ng"]);
+  var $q = injector.get("$q");
+  return $q.defer();
+}
+
+function register(token) {
+  var deferred = getDeferred();
+  exec(deferred.resolve, deferred.reject, "HockeyApp", "register", [token]);
+  return deferred.promise;
+}
