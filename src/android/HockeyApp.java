@@ -98,12 +98,5 @@ public class HockeyApp extends CordovaPlugin {
 		return new PluginResult(PluginResult.Status.OK);
 	}
 
-//	private PluginResult reportCrash(JSONArray args) throws JSONException {
-////		String message = args.getString(0);
-////		throw new RuntimeException(message);
-//
-//
-//
-//	}
 
 }
