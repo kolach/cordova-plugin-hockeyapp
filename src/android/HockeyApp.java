@@ -38,14 +38,15 @@ public class HockeyApp extends CordovaPlugin {
 			DefinedAction definedAction = DefinedAction.valueOf(action);
 
 			switch (definedAction) {
+
 				case register:
 					PluginResult result = null;
 					result = register(args);
 					result.setKeepCallback(false);
 					callbackContext.sendPluginResult(result);
 					break;
-				case reportCrash:
 
+				case reportCrash:
 					final String message = args.getString(0);
 					cordova.getActivity().runOnUiThread(new Runnable() {
 						@Override
@@ -59,8 +60,6 @@ public class HockeyApp extends CordovaPlugin {
 						}
 					});
 					callbackContext.success();
-					return true;
-
 					break;
 			}
 
