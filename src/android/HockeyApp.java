@@ -46,7 +46,7 @@ public class HockeyApp extends CordovaPlugin {
 					break;
 				case reportCrash:
 
-					String message = args.getString(0);
+					final String message = args.getString(0);
 					cordova.getActivity().runOnUiThread(new Runnable() {
 						@Override
 						public void run() {
