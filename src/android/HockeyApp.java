@@ -53,7 +53,7 @@ public class HockeyApp extends CordovaPlugin {
 							Exception e = new Exception(message);
 							saveException(e, new CrashManagerListener() {
 								public String getDescription() {
-									return description;
+									return message;
 								}
 							});
 						}
