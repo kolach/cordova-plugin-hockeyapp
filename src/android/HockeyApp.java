@@ -7,9 +7,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import static net.hockeyapp.android.ExceptionHandler.saveException;
 import net.hockeyapp.android.CrashManager;
 import net.hockeyapp.android.FeedbackManager;
 import net.hockeyapp.android.UpdateManager;
+import net.hockeyapp.android.CrashManagerListener;
 
 import java.lang.RuntimeException;
 
@@ -43,7 +45,22 @@ public class HockeyApp extends CordovaPlugin {
 					callbackContext.sendPluginResult(result);
 					break;
 				case reportCrash:
-					reportCrash(args);
+
+					String message = args.getString(0);
+					cordova.getActivity().runOnUiThread(new Runnable() {
+						@Override
+						public void run() {
+							Exception e = new Exception(message);
+							saveException(e, new CrashManagerListener() {
+								public String getDescription() {
+									return description;
+								}
+							});
+						}
+					});
+					callbackContext.success();
+					return true;
+
 					break;
 			}
 
@@ -78,12 +95,16 @@ public class HockeyApp extends CordovaPlugin {
 	private PluginResult register(JSONArray args) throws JSONException {
 		appId = args.getString(0);
 		checkForUpdates();
+		checkForCrashes();
 		return new PluginResult(PluginResult.Status.OK);
 	}
 
 	private PluginResult reportCrash(JSONArray args) throws JSONException {
-		String message = args.getString(0);
-		throw new RuntimeException(message);
+//		String message = args.getString(0);
+//		throw new RuntimeException(message);
+
+
+
 	}
 
 }
