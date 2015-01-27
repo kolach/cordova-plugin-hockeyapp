@@ -51,7 +51,7 @@ public class HockeyApp extends CordovaPlugin {
 			return true;
 
 		} catch (RuntimeException e) {
-			callbackContext.success();
+			callbackContext.success(e.toString());
 			throw e;
 		} catch (JSONException e) {
 			callbackContext.error(e.getMessage());
