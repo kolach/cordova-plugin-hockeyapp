@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://www.phonegap.com/ns/plugins/1.0"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    id="com.assuredlabor.cordova.hockeyapp"
+    version="0.0.1">
+
+    <name>HockeyApp</name>
+    <description>
+        This plugin integrates HockeyApp SDK for Android.
+    </description>
+    <license>MIT</license>
+
+    <engines>
+        <!--
+            Cordova 2.8.0 is all I have tested on - it should work fine with earlier versions.
+            Please modify the below line, test, and submit a PR if it works for you.
+        -->
+        <engine name="cordova" version=">=3.0.0" />
+    </engines>
+
+    <js-module src="www/HockeyAppPlugin.js">
+       <clobbers target="cordova.hockeyapp" />
+    </js-module>
+
+    <!-- android -->
+    <platform name="android">
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="HockeyApp">
+                <param name="android-package" value="com.assuredlabor.cordova.hockeyapp.HockeyApp"/>
+            </feature>
+        </config-file>
+
+        <config-file target="AndroidManifest.xml" parent="/manifest/application">
+            <activity android:name="net.hockeyapp.android.FeedbackActivity" />
+        </config-file>
+
+        <config-file target="AndroidManifest.xml" parent="/manifest">
+            <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+            <uses-permission android:name="android.permission.INTERNET" />
+        </config-file>
+
+        <source-file src="src/android/HockeyApp.java" target-dir="src/com/assuredlabor/cordova/hockeyapp" />
+        <source-file src="src/android/libs/HockeySDK-3.5.0.jar" target-dir="libs" framework="true" />
+    </platform>
+
+</plugin>
