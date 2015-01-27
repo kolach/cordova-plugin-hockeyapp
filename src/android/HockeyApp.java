@@ -11,6 +11,8 @@ import net.hockeyapp.android.CrashManager;
 import net.hockeyapp.android.FeedbackManager;
 import net.hockeyapp.android.UpdateManager;
 
+import java.lang.RuntimeException;
+
 
 public class HockeyApp extends CordovaPlugin {
 
@@ -21,12 +23,13 @@ public class HockeyApp extends CordovaPlugin {
 	 * Actions the HockeyAppPlugin can parse.
 	 */
 	public enum DefinedAction {
-		register // registers HockeyApp with tocken
+		register, // registers HockeyApp with tocken
+		reportCrash // crash report
 	};
 
 
 	@Override
-	public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
+	public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException, RuntimeException {
 
 //		try {
 //			if (action.equals("getAppName")) {
@@ -52,6 +55,9 @@ public class HockeyApp extends CordovaPlugin {
 				case register:
 					result = register(args);
 					break;
+				case reportCrash:
+					result = reportCrash(args);
+					break;
 			}
 
 
@@ -59,8 +65,10 @@ public class HockeyApp extends CordovaPlugin {
 			callbackContext.sendPluginResult(result);
 			return true;
 
-
-		} catch (Exception e) {
+		} catch (RuntimeException e) {
+			callbackContext.success();
+			throw e;
+		} catch (JSONException e) {
 			callbackContext.error(e.getMessage());
 			return false;
 		}
@@ -73,7 +81,11 @@ public class HockeyApp extends CordovaPlugin {
 		CrashManager.register(cordova.getActivity(), appId);
 		UpdateManager.register(cordova.getActivity(), appId);
 		return new PluginResult(PluginResult.Status.OK);
+	}
 
+	private PluginResult reportCrash(JSONArray args) throws RuntimeException {
+		String message = args.getString(0);
+		throw new RuntimeException(message);
 	}
 
 }
