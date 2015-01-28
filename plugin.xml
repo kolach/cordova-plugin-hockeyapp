@@ -41,6 +41,7 @@
         </config-file>
 
         <source-file src="src/android/HockeyApp.java" target-dir="src/com/assuredlabor/cordova/hockeyapp" />
+        <source-file src="src/android/JSException.java" target-dir="src/com/assuredlabor/cordova/hockeyapp" />
         <source-file src="src/android/libs/HockeySDK-3.5.0.jar" target-dir="libs" framework="true" />
     </platform>
 

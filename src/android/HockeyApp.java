@@ -53,7 +53,7 @@ public class HockeyApp extends CordovaPlugin {
 					cordova.getActivity().runOnUiThread(new Runnable() {
 						@Override
 						public void run() {
-							Exception e = new Exception(message);
+							JSException e = new JSException(message);
 							saveException(e, new CrashManagerListener() {
 								public String getDescription() {
 									return message;
