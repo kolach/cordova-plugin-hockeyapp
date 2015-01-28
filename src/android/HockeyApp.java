@@ -12,7 +12,7 @@ import net.hockeyapp.android.CrashManager;
 import net.hockeyapp.android.FeedbackManager;
 import net.hockeyapp.android.UpdateManager;
 import net.hockeyapp.android.CrashManagerListener;
-import net.hockeyapp.android.Tracking
+import net.hockeyapp.android.Tracking;
 
 import java.lang.RuntimeException;
 
