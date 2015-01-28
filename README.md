@@ -13,9 +13,11 @@ with:
 
 ## Use from Javascript
 
-    TODO
+    cordova.hockeyapp.register(token);
 
-    cordova.hockeyapp.start(token);
+    cordova.hockeyapp.reportCrash(message);
+
+    cordova.hockeyapp.feedback(message);
 
 
 ## Credits

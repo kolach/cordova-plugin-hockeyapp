@@ -79,6 +79,11 @@ public class HockeyApp extends CordovaPlugin {
 
 	}
 
+	@Override
+	public void onDestroy() {
+		stopTracking();
+		super.onDestroy();
+	}
 
 	@Override
 	public void onPause(boolean multitasking) {
@@ -107,17 +112,22 @@ public class HockeyApp extends CordovaPlugin {
 	}
 
 	private void startTracking() {
-		Tracking.startUsage(cordova.getActivity());
+		if (appId != null) {
+			Tracking.startUsage(cordova.getActivity());
+		}
 	}
 
 	private void stopTracking() {
-		Tracking.stopUsage(cordova.getActivity());
+		if (appId != null) {
+			Tracking.stopUsage(cordova.getActivity());
+		}
 	}
 
 	private PluginResult register(JSONArray args) throws JSONException {
 		appId = args.getString(0);
 		checkForUpdates();
 		checkForCrashes();
+		startTracking();
 		return new PluginResult(PluginResult.Status.OK);
 	}
 
