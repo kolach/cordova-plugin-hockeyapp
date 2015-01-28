@@ -61,7 +61,7 @@ public class HockeyApp extends CordovaPlugin {
 							});
 						}
 					});
-					callbackContext.success();
+					callbackContext.success(message);
 					break;
 
 				case feedback:
