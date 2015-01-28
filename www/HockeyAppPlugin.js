@@ -1,10 +1,9 @@
 var exec = require("cordova/exec");
 
 module.exports = {
-
   register: register,
-  reportCrash: reportCrash
-
+  reportCrash: reportCrash,
+  feedback: feedback
 };
 
 
@@ -14,14 +13,20 @@ function getDeferred() {
   return $q.defer();
 }
 
-function register(token) {
+function execute(command, args) {
   var deferred = getDeferred();
-  exec(deferred.resolve, deferred.reject, "HockeyApp", "register", [token]);
+  exec(deferred.resolve, deferred.reject, "HockeyApp", command, args);
   return deferred.promise;
 }
 
+function register(token) {
+  return execute("register", [token]);
+}
+
 function reportCrash(error) {
-  var deferred = getDeferred();
-  exec(deferred.resolve, deferred.reject, "HockeyApp", "reportCrash", [error]);
-  return deferred.promise;
+  return execute("reportCrash", [error]);
+}
+
+function feedback() {
+  return execute("feedback", []);
 }

@@ -12,6 +12,7 @@ import net.hockeyapp.android.CrashManager;
 import net.hockeyapp.android.FeedbackManager;
 import net.hockeyapp.android.UpdateManager;
 import net.hockeyapp.android.CrashManagerListener;
+import net.hockeyapp.android.Tracking
 
 import java.lang.RuntimeException;
 
@@ -25,8 +26,9 @@ public class HockeyApp extends CordovaPlugin {
 	 * Actions the HockeyAppPlugin can parse.
 	 */
 	public enum DefinedAction {
-		register, // registers HockeyApp with tocken
-		reportCrash // crash report
+		register, 		// registers HockeyApp with tocken
+		reportCrash, 	// crash report
+		feedback        // show feedback
 	};
 
 
@@ -61,13 +63,14 @@ public class HockeyApp extends CordovaPlugin {
 					});
 					callbackContext.success();
 					break;
+
+				case feedback:
+					showFeedbackActivity();
+					callbackContext.success();
+					break;
 			}
 
 			return true;
-
-		} catch (RuntimeException e) {
-			callbackContext.success("Reported error: " + e.toString());
-			throw e;
 
 		} catch (JSONException e) {
 			callbackContext.error(e.getMessage());
@@ -76,10 +79,23 @@ public class HockeyApp extends CordovaPlugin {
 
 	}
 
+
+	@Override
+	public void onPause(boolean multitasking) {
+		stopTracking();
+		super.onPause(multitasking);
+	}
+
 	@Override
 	public void onResume(boolean multitasking) {
 		super.onResume(multitasking);
+		startTracking();
 		checkForCrashes();
+	}
+
+	private void showFeedbackActivity() {
+		FeedbackManager.register(cordova.getActivity(), appId, null);
+		FeedbackManager.showFeedbackActivity(cordova.getActivity());
 	}
 
 	private void checkForCrashes() {
@@ -90,6 +106,13 @@ public class HockeyApp extends CordovaPlugin {
 		UpdateManager.register(cordova.getActivity(), appId);
 	}
 
+	private void startTracking() {
+		Tracking.startUsage(cordova.getActivity());
+	}
+
+	private void stopTracking() {
+		Tracking.stopUsage(cordova.getActivity());
+	}
 
 	private PluginResult register(JSONArray args) throws JSONException {
 		appId = args.getString(0);
