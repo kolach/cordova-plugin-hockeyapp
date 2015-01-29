@@ -57,7 +57,7 @@ public class HockeyApp extends CordovaPlugin {
 							JSException e = new JSException(message);
 							saveException(e, new CrashManagerListener() {
 								public String getDescription() {
-									String description = message;
+									String description = message + " ?";
 									if (data != null) {
 										description = description + ", Data: " + data.toString();
 									}
