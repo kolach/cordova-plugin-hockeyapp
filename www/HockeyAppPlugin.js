@@ -23,8 +23,8 @@ function register(token) {
   return execute("register", [token]);
 }
 
-function reportCrash(error) {
-  return execute("reportCrash", [error]);
+function reportCrash(error, data) {
+  return execute("reportCrash", [error, data]);
 }
 
 function feedback() {
