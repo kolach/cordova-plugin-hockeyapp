@@ -15,9 +15,9 @@ with:
 
     cordova.hockeyapp.register(token);
 
-    cordova.hockeyapp.reportCrash(message);
+    cordova.hockeyapp.reportCrash(message, data);
 
-    cordova.hockeyapp.feedback(message);
+    cordova.hockeyapp.feedback();
 
 
 ## Credits
