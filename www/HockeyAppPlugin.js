@@ -24,7 +24,7 @@ function register(token) {
 }
 
 function reportCrash(error, data) {
-  return execute("reportCrash", [error, data]);
+  return execute("reportCrash", [error]);
 }
 
 function feedback() {

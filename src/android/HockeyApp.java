@@ -49,19 +49,14 @@ public class HockeyApp extends CordovaPlugin {
 					break;
 
 				case reportCrash:
-					final String message 	= args.getString(0);
-					final JSONObject data  	= args.isNull(1) ? null : args.getJSONObject(1);
+					final String message = args.getString(0);
 					cordova.getActivity().runOnUiThread(new Runnable() {
 						@Override
 						public void run() {
 							JSException e = new JSException(message);
 							saveException(e, new CrashManagerListener() {
 								public String getDescription() {
-									String description = message + " ?";
-									if (data != null) {
-										description = description + ", Data: " + data.toString();
-									}
-									return description;
+									return message;
 								}
 							});
 						}
