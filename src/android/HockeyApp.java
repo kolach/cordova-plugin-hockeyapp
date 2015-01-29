@@ -50,7 +50,7 @@ public class HockeyApp extends CordovaPlugin {
 
 				case reportCrash:
 					final String message 	= args.getString(0);
-					final JSONObject data 	= args.getObject(1);
+					final JSONObject data 	= args.getJSONObject(1);
 					cordova.getActivity().runOnUiThread(new Runnable() {
 						@Override
 						public void run() {
